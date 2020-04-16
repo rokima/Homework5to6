@@ -1,0 +1,17 @@
+﻿@page
+@using Abc.Pages.Extensions
+@model Abc.Soft.Areas.Quantity.Pages.UnitFactors.EditModel
+
+
+@{
+    Layout = "_Edit";   
+}
+    <body>
+        <input type="hidden" asp-for="Item.SystemOfUnitsId" />
+        <input type="hidden" asp-for="Item.UnitId" />
+        @Html.DisabledControlsFor(m => m.Item.SystemOfUnitsId)
+        @Html.DisabledControlsFor(m => m.Item.UnitId)
+        @Html.EditControlsFor(m => m.Item.Factor)
+        @Html.EditControlsFor(m => m.Item.ValidFrom)
+        @Html.EditControlsFor(m => m.Item.ValidTo)
+    </body>

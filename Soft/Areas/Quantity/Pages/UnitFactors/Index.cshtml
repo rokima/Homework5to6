@@ -1,0 +1,40 @@
+﻿@page
+@using Abc.Pages.Extensions
+@model Abc.Soft.Areas.Quantity.Pages.UnitFactors.IndexModel
+
+@{
+    Layout = "_Index";
+    var page = Model.PageUrl;
+}
+@section Create {
+    @Html.HypertextLinkFor(string.Empty, new Link(Constants.CreateNewLinkTitle, $"{page}/Create"))
+}
+<body>
+    <table class="table">
+        <thead>
+            @Html.TableHeaderFor(
+                new Link(Html.DisplayNameFor(m => m.Item.SystemOfUnitsId), Model.GetSortString(m => m.SystemOfUnitsId, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.UnitId), Model.GetSortString(m => m.UnitId, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.Factor), Model.GetSortString(m => m.Factor, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.ValidFrom), Model.GetSortString(m => m.ValidFrom, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.ValidTo), Model.GetSortString(m => m.ValidTo, page))
+                )
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    @Html.TableRowFor(
+                        page,
+                        item.GetId(),
+                        Html.DisplayFor(modelItem => item.SystemOfUnitsId),
+                        Html.DisplayFor(modelItem => item.UnitId),
+                        Html.DisplayFor(modelItem => item.Factor),
+                        Html.DisplayFor(modelItem => item.ValidFrom),
+                        Html.DisplayFor(modelItem => item.ValidTo)
+                        )
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

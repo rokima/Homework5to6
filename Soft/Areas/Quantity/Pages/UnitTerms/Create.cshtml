@@ -1,0 +1,15 @@
+﻿@page
+@using Abc.Pages.Extensions
+@model Abc.Soft.Areas.Quantity.Pages.UnitTerms.CreateModel
+
+@{
+    Layout = "_Create";
+}
+    <body>
+        @Html.EditControlsForDropDown(m => m.Item.MasterId, Model.Units)
+        @Html.EditControlsForDropDown(m => m.Item.TermId, Model.Units)
+        @Html.EditControlsFor(m => m.Item.Power)
+        @Html.EditControlsFor(m => m.Item.ValidFrom)
+        @Html.EditControlsFor(m => m.Item.ValidTo)
+    </body>
+

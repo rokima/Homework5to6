@@ -1,0 +1,102 @@
+﻿@page
+@using Abc.Aids
+@using Abc.Facade.Quantity
+@using Abc.Pages.Extensions
+@model Soft.Areas.Quantity.Pages.Units.IndexModel
+
+@{
+    Layout = "_Index";
+    var page = Model.PageUrl;
+}
+
+@section Create
+{
+    @Html.HypertextLinkFor(string.Empty, new Link(Constants.CreateNewLinkTitle, $"{page}/Create?fixedFilter={Model.FixedFilter}&fixedValue={Model.FixedValue}"))
+}
+
+<body>
+    <table class="table">
+        <thead>
+            @Html.TableHeaderFor(
+                new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortString(x => x.Id, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.MeasureId), Model.GetSortString(x => x.MeasureId, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.Name), Model.GetSortString(x => x.Name, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.Code), Model.GetSortString(x => x.Code, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.Definition), Model.GetSortString(x => x.Definition, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.ValidFrom), Model.GetSortString(x => x.ValidFrom, page)),
+                new Link(Html.DisplayNameFor(m => m.Item.ValidTo), Model.GetSortString(x => x.ValidTo, page)))
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                var selectedRow = "";
+                if (item.Id == Model.SelectedId)
+                {
+                    selectedRow = "alert-success";
+                    Model.LoadDetails(item);
+                }
+                <tr class=@selectedRow>
+                    @Html.TableRowWithSelectFor(page, item.Id, Model.SortOrder,
+                        Model.SearchString, Model.PageIndex, Model.FixedFilter, Model.FixedValue,
+                        Html.DisplayFor(modelItem => item.Id),
+                        Html.Raw(Model.GetMeasureName(item.MeasureId)),
+                        Html.DisplayFor(modelItem => item.Name),
+                        Html.DisplayFor(modelItem => item.Code),
+                        Html.DisplayFor(modelItem => item.Definition),
+                        Html.DisplayFor(modelItem => item.ValidFrom),
+                        Html.DisplayFor(modelItem => item.ValidTo))
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.Terms.Count != 0)
+    {
+        <h3>Terms for Selected Unit</h3>
+        <table class="table">
+            <tr>
+                <th>@(GetMember.DisplayName<UnitTermView>(x => x.MasterId))</th>
+                <th>@(GetMember.DisplayName<UnitTermView>(x => x.TermId))</th>
+                <th>@(GetMember.DisplayName<UnitTermView>(x => x.Power))</th>
+                <th>@(GetMember.DisplayName<UnitTermView>(x => x.ValidFrom))</th>
+                <th>@(GetMember.DisplayName<UnitTermView>(x => x.ValidTo))</th>
+            </tr>
+
+            @foreach (var item in Model.Terms)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MasterId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TermId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Power)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
+                </tr>
+            }
+        </table>
+
+    }
+    @if (Model.Factors.Count != 0)
+    {
+        <h3>Factors for Selected Unit</h3>
+        <table class="table">
+            <tr>
+                <th>@(GetMember.DisplayName<UnitFactorView>(x => x.SystemOfUnitsId))</th>
+                <th>@(GetMember.DisplayName<UnitFactorView>(x => x.UnitId))</th>
+                <th>@(GetMember.DisplayName<UnitFactorView>(x => x.Factor))</th>
+                <th>@(GetMember.DisplayName<UnitFactorView>(x => x.ValidFrom))</th>
+                <th>@(GetMember.DisplayName<UnitFactorView>(x => x.ValidTo))</th>
+            </tr>
+
+            @foreach (var item in Model.Factors)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.SystemOfUnitsId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UnitId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Factor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ValidFrom)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ValidTo)</td>
+                </tr>
+            }
+        </table>
+
+    }
+</body>

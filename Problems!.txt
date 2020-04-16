@@ -1,0 +1,2 @@
+On jäänud problemid Azuri ja GitHubiga, aga sõbraga rääkisin ja vahetasin kõik namespaceid ja assembly named projektis Abcle, et jääb samaks
+teie lisatud failidega ja 90 protsendi problemid on lahendanud.
