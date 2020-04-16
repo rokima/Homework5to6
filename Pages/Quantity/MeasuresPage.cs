@@ -6,6 +6,7 @@ using Abc.Facade.Quantity;
 
 namespace Abc.Pages.Quantity
 {
+
     public abstract class MeasuresPage : CommonPage<IMeasuresRepository, Measure, MeasureView, MeasureData> {
 
         protected internal readonly IMeasureTermsRepository terms;
